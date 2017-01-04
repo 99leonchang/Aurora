@@ -128,11 +128,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['team']['status'] == 'Admin') {
         </form>
         <?php
     } else {
-        $query = "select tid, teamname, gid, status from teams";
+        $query = "select tid, teamname, gid, status, name1 from teams";
         $res = DB::findAllFromQuery($query);
-        echo "<div class='text-center page-header'><h1>List of Teams</h1></div><table class='table table-hover'><thead><tr><th>ID</th><th>Name</th><th>Group ID</th><th>Status</th><th>Options</th></tr></thead>";
+        echo "<div class='text-center page-header'><h1>List of Teams</h1></div><table class='table table-hover'><thead><tr><th>ID</th><th>Team Name</th><th>Rep Name</th><th>Group ID</th><th>Status</th><th>Options</th></tr></thead>";
         foreach ($res as $row) {
-            echo "<tr><td>$row[tid]</td><td>$row[teamname]</td><td>$row[gid]</td><td>$row[status]</td><td><a class='btn btn-primary' href='" . SITE_URL . "/adminteam/$row[teamname]'><i class='glyphicon glyphicon-edit'></i> Edit</a></td></tr>";
+            echo "<tr><td>$row[tid]</td><td>$row[teamname]</td><td>$row[name1]</td><td>$row[gid]</td><td>$row[status]</td><td><a class='btn btn-primary' href='" . SITE_URL . "/adminteam/$row[teamname]'><i class='glyphicon glyphicon-edit'></i> Edit</a></td></tr>";
         }
         echo "</table>";
     }

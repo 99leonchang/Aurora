@@ -252,7 +252,7 @@ doCompetitionCheck(); //Activate competition when planned
             </div>
         </div>
         <div class="footer">
-            <a href="https://github.com/pushkar8723/Aurora" target="_blank">Aurora - An Open Source Online Judge</a>
+            <a href="https://github.com/99leonchang/Aurora" target="_blank">Aurora - An Open Source Online Judge</a>
         </div>
     </body>
 </html>

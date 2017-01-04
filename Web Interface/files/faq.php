@@ -1,34 +1,4 @@
 <center><h1>Frequently Asked Questions</h1></center>
-<center><h3>Aurora v2</h3></center>
-<table class='faq'><tr class="info"><th>Previous version was working fine, why this upgrade?</th></tr><tr><td>
-	<p>At the end of Code Jam Finals, Aurora went into a state where no one can open any page or make submissions for several minutes.
-        And at that time there were not even 50 participants! When I read the source code I found that various changes can be made to enhance its performance.
-        Also some change can be made so that the judge can run 24/7</p>
-</td></tr></table><br/>
-<table class='faq'><tr class="info"><th>What are the changes in this version?</th></tr><tr><td>
-	<p>There are following changes :</p>
-        <ol>
-            <li>There are two sections of problems now, Practice Problems and Contest Problems. One can make submissions to practice problems when there is no contest live, i.e. judge is in Passive mode. 
-                Contest problems excepts submissions only when judge is in Active mode.</li>
-            <li>Two type of problems are there now, 'Active' and 'Inactive', both will be visible to users but submissions can be made only on 'Active' Problems.</li>
-            <li>Ranking is done only on Contest Problems. Although there is score on each Practice Problem but its score is calculated separately.</li>
-            <li>There is a team page for each team. You can see which practice problems you / your team-mates solved, and problems that are yet to be solved.</li>
-            <li>Each contest has its own main page where problems will appear when contest starts also it will contain various Announcements/Notifications related to the contest.</li>
-            <li>Judge now runs in a sandbox environment on DC Hub server rather than on virtual machine enabling it to run 24/7, also sockets are used to further improve the performance of judge.</li>
-            <li>Some changes to judge and web interface made it possible to set fractional time limit like 0.5 second</li>
-        </ol>
-</td></tr></table><br/>
-<!--table class='faq'><tr class="info"><th>What is the platform configuration?</th></tr><tr><td>
-	<p>Your programs will be running on following configurations.</p>
-</td></tr></table><br/-->
-<table class='faq'><tr class="info"><th>What are the limitations of this version?</th></tr><tr><td>
-	<p>Java programmers need to define their main function inside class named 'Main' (like other online judges) or they will get compilation error.
-        </p>
-</td></tr></table><br/>
-<table class='faq'><tr class="info"><th>I liked few features of old judge which are now missing.</th></tr><tr><td>
-	<p>Post description of features you liked on Contact Us page and I will try and add them as soon as I can.</p>
-</td></tr></table><br/>
-<hr/>
 <center><h3>Aurora</h3></center>
 <br><table class='faq'><tr class="info"><th>What is the Aurora Online Judge?</th></tr><tr><td>
 	<p>The Aurora Online Judge is a Programming Contest Control System. It acts as an interface between the judges and the participants of a Computer Programming Contest.</p>
@@ -65,7 +35,7 @@
 <br><table class='faq'><tr class="info"><th>What type of platform shall my codes be run on?</th></tr><tr><td>
 	<p>To prevent malicious codes from harming the Execution Environment or the Server itself, submitted programs are executed on Virtual Machines. The configuration of the Virtual Machine being used right now is given below :</p>
 	<ul>
-		<li>Operating System : Ubuntu 10.10 (Maverick); Harddisk : 20GB ; RAM : 512MB</li>
+		<li>Operating System : CentOS 7; Harddisk : 1TB ; RAM : 32GB</li>
 		<li>Brainf**k Interpreter : bf (version 20041219)</li>
 		<li>C Compiler : gcc 4.4.5</li>
 		<li>C++ Compiler : g++ 4.4.5</li>
@@ -81,19 +51,16 @@
 	<p>Please contact an Administrator to request support for additional languages.</p>
 </td></tr></table>
 
-<br><table class='faq'><tr class="info"><th>Can you give an example of kind of the programs we can submit here?</th></tr><tr><td>
-	<p>Please refer to and use the <a target='new' href='?display=problem&pid=1'>Squares</a> Problem to test your choice of programming language. Accepted solutions to this problem have also been made Public for educational reasons, and are available in the following languages : <a target='new' href='?display=code&rid=1'>C</a>, <a target='new' href='?display=code&rid=2'>C++</a>, <a target='new' href='?display=code&rid=3'>C#</a>, <a target='new' href='?display=code&rid=4'>Java</a>, <a target='new' href='?display=code&rid=5'>JavaScript</a>, <a target='new' href='?display=code&rid=6'>Pascal</a>, <a target='new' href='?display=code&rid=7'>Perl</a>, <a target='new' href='?display=code&rid=8'>PHP</a>, <a target='new' href='?display=code&rid=9'>Python</a> and <a target='new' href='?display=code&rid=10'>Ruby</a>. Please remember that there is a 100KB limit on the size of the code you can submit.</p>
-	<p>Please do bother not submitting malicious programs that might harm the Execution Environment or the Server itself. As the execution takes place on Virtual Machines, this will only result in a minor inconvenience to the Administrators and the suspension of your account. Also, programs that try to communicate with machines other than this server (in an attempt to send information like the input given to the program) will not work, given that the Virtual Machines are on an small isolated private network. Sumbission of programs that do anything other than try to solve problems will result in severe consequences.</p>
-</td></tr></table>
 	
 <br><table class='faq'><tr class="info"><th>Why is my program not being Accepted?</th></tr><tr><td>
 	<p>The programs are judged by the Execution Protocol as described above. However, there exist cases that havent been dealt with, and some of which are mentioned below along with some common errors :</p>
 	<ul>
 		<li>No provision has been made to detect Run Time Errors in case of languages which need to be compiled. Consequently, if one occurs, it may cause the process to hang (returning TLE, Time Limit Exceeded) or to abort (returning WA, Wrong Answer).</li>
 		<li>Java code files must have the same name as the class which contains the main function. If you are uploading *.java files, this should not be a concern, but in case you are submitting text, please ensure that you specify the class name correctly when asked for it.</li>
+		<li>Java programmers need to define their main function inside class named 'Main' (like other online judges) or they will get compilation error.</li>
 		<li>Ensure that your program is not printing anything other that what is asked. Ensure that the print operations that you used for debugging your code are removed or commented out. Also ensure that your program is reading from the Standard Input only, and not a file as during debugging.</li>
 	</ul>
-	<p>If you are sure that none of the reasons described above are applicable in your case, please reconsider the virtual impossibity that logic of your program is flawed, and reexamine your code. If you are absolutely sure that your program is correct in every way, but is still not being Accepted, you may contact an Administrator (via the Clarifications feature) to rejudge or manually run your program (if it does come to that, please quote the Run ID). Note that a particular clarification can only be deleted by the team that requested them provided it not been replied to by an Administrator.</p>
+	<p>If you are sure that none of the reasons described above are applicable in your case, please reconsider the virtual impossibility that logic of your program is flawed, and reexamine your code. If you are absolutely sure that your program is correct in every way, but is still not being Accepted, you may contact an Administrator (via the Clarifications feature) to rejudge or manually run your program (if it does come to that, please quote the Run ID). Note that a particular clarification can only be deleted by the team that requested them provided it not been replied to by an Administrator.</p>
 </td></tr></table>	
 
 <br><table class='faq'><tr class="info"><th>How is the ranking done here?</th></tr><tr><td>
@@ -114,6 +81,3 @@
 	<p>The Lockdown Mode is used immediately prior to (Active Mode) contests, during which Administrators (who arent affected by the Lockdown Mode once they log in) are uploading and testing new problems.</p>
 </td></tr></table>
 
-<br><table class='faq'><tr class="info"><th>One last thing ... why did you make this?</th></tr><tr><td>
-	<p>Ah ... I was jobless.</p>
-</td></tr></table>

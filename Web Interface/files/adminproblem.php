@@ -187,12 +187,25 @@ if (isset($_SESSION['loggedin']) && $_SESSION['team']['status'] == 'Admin') {
                 </div>
             </div>
         </form><br/>
-        <script type="text/javascript" src="<?php echo JS_URL; ?>/tinymce/tinymce.min.js"></script>
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
         <script>
             tinymce.init({
-                selector:'textarea',
-                plugins: "link",
-                forced_root_block : false,
+                selector: 'textarea',
+                height: 500,
+                theme: 'modern',
+                plugins: [
+                    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen',
+                    'insertdatetime media nonbreaking save table contextmenu directionality',
+                    'emoticons paste textcolor colorpicker textpattern imagetools codesample toc'
+                ],
+                toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+                image_advtab: true,
+                content_css: [
+                    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                    '//www.tinymce.com/css/codepen.min.css'
+                ]
             });
         </script>
         <?php
