@@ -17,42 +17,84 @@ if ($judge['value'] != "Lockdown" || (isset($_SESSION['loggedin']) && $_SESSION[
             }
             ?>
             <div class="text-center page-header"><h1><?php echo $teamname; ?></h1></div>
-            <table class='table table-bordered'>
-                <tr>
-                    <th width='150px'>Team Members</th>
-                    <td>
-                        <?php
-                        echo "$res[name1] ($res[branch1])";
-                        if ($res['name2'] != "")
-                            echo ", $res[name2] ($res[branch2])";
-                        if ($res['name3'] != "")
-                            echo ", $res[name3] ($res[branch3])";
-                        ?>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Group</th><td><?php echo $group[$res['gid']]; ?></td>
-                </tr>
-                <tr>
-                    <th>Rank</th><td>
-                        <?php
-                        $query = "SELECT count(*)+1 as rank, (select score from teams where tid = " . $res['tid'] . ") as sco FROM `teams` WHERE score > (select score from teams where tid = " . $res['tid'] . ") and status = 'Normal' or (score = (select score from teams where tid = " . $res['tid'] . ") and penalty < (select penalty from teams where tid = " . $res['tid'] . ")) ";
-                        $result = DB::findOneFromQuery($query);
-                        echo $result['rank'];
-                        ?></td>
-                </tr>
-                <tr>
-                    <th>Score</th><td><?php echo $res['score']; ?></td>
-                </tr>
-                <tr>
-                    <th>Practice Score</th><td>
-                        <?php
-                        $query = "select sum(score) as tot from (select distinct(pid), (select score from problems where pid = runs.pid and contest = 'practice') as score from runs where pid in (select pid from problems where contest = 'practice' and status = 'Active') and result = 'AC' and tid = $res[tid])t";
-                        $sco = DB::findOneFromQuery($query);
-                        echo $sco['tot'];
-                        ?></td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="col-md-8">
+                    <table class='table table-bordered'>
+                        <tr>
+                            <th width='150px'>Team Members</th>
+                            <td>
+                                <?php
+                                echo "$res[name1] ($res[branch1])";
+                                if ($res['name2'] != "")
+                                    echo ", $res[name2] ($res[branch2])";
+                                if ($res['name3'] != "")
+                                    echo ", $res[name3] ($res[branch3])";
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Group</th><td><?php echo $group[$res['gid']]; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Rank</th><td>
+                                <?php
+                                $query = "SELECT count(*)+1 as rank, (select score from teams where tid = " . $res['tid'] . ") as sco FROM `teams` WHERE score > (select score from teams where tid = " . $res['tid'] . ") and status = 'Normal' or (score = (select score from teams where tid = " . $res['tid'] . ") and penalty < (select penalty from teams where tid = " . $res['tid'] . ")) ";
+                                $result = DB::findOneFromQuery($query);
+                                echo $result['rank'];
+                                ?></td>
+                        </tr>
+                        <tr>
+                            <th>Score</th><td><?php echo $res['score']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Practice Score</th><td>
+                                <?php
+                                $query = "select sum(score) as tot from (select distinct(pid), (select score from problems where pid = runs.pid and contest = 'practice') as score from runs where pid in (select pid from problems where contest = 'practice' and status = 'Active') and result = 'AC' and tid = $res[tid])t";
+                                $sco = DB::findOneFromQuery($query);
+                                echo $sco['tot'];
+                                ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js"></script>
+                    <?php
+                    //Grab counts of each result
+                    $resopt = array('AC', 'RTE', 'WA', 'TLE', 'CE', 'DQ', 'PE');
+                    $dist = array();
+                    foreach($resopt as $val){
+                        $query = "select count(pid), (select code from problems where pid = runs.pid and contest = 'practice' and status='Active') as code from runs where tid = $res[tid] and result = '".$val."'";
+                        $dist[$val] = DB::findOneFromQuery($query)['count(pid)'];
+                    }
+                    ?>
+                    <canvas id="distChart" width="400" height="400"></canvas>
+                    <script>
+                        var ctx = document.getElementById("distChart");
+                        var distChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data:
+                            {
+                                labels: [
+                                    "AC",
+                                    "WA",
+                                    "PE",
+                                    "Other"
+                                ],
+                                datasets: [
+                                    {
+                                        data: [<?= $dist['AC'] ?>, <?= $dist['WA'] ?>, <?= $dist['PE'] ?>, <?= $dist['RTE']+$dist['TLE']+$dist['CE']+$dist['DQ'] ?>],
+                                        backgroundColor: [
+                                            "#5cb85c",
+                                            "#d9534f",
+                                            "#5bc0de",
+                                            "#777"
+                                        ]
+                                    }]
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
             <div class="text-center"><a class="btn btn-default" href="<?php echo SITE_URL."/submissions/$_GET[code]"; ?>"><?php echo $_GET['code']."'s " ?>Submissions</a></div>
             <h3>Practice Problems Solved</h3>
             <div class='row'>
